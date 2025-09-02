@@ -1,0 +1,92 @@
+PUT _inference/sparse_embedding/my-elser-model 
+{
+  "service": "elser", 
+  "service_settings": {
+    "num_allocations": 1,
+    "num_threads": 1
+  }
+}
+
+DELETE rag-langchain
+
+PUT rag-langchain
+{
+  "mappings": {
+    "properties": {
+      "text": {
+        "type": "text",
+        "analyzer": "english",
+        "copy_to": "semantic_field"
+      },
+      "semantic_field": {
+        "type": "semantic_text",
+        "inference_id": "my-elser-model"
+      }
+    }
+  }
+}
+
+GET _cat/indices
+
+
+GET rag-langchain/_mapping
+
+GET rag-langchain/_search
+
+
+# Keyword search with match query
+GET rag-langchain/_search
+{
+  "query": {
+    "multi_match": {
+      "query": "Who won the Nobel Prize in Physics 2024?",
+      "fields": ["text"]
+    }
+  }
+}
+
+# Semantic query
+GET rag-langchain/_search
+{
+  "query": {
+    "semantic": {
+      "field": "semantic_field",
+      "query": "Who won the Nobel Prize in Physics 2024?"
+    }
+  }
+}
+
+# Hybrid search
+GET rag-langchain/_search
+{
+  "retriever": {
+    "rrf": {
+      "retrievers": [
+        {
+          "standard": {
+            "query": {
+              "semantic": {
+                "field": "semantic_field",
+                "query": "Who won the Nobel Prize in Physics 2024?"
+              }
+            }
+          }
+        },
+        {
+          "standard": {
+            "query": {
+              "multi_match": {
+                "query": "Who won the Nobel Prize in Physics 2024?",
+                "fields": [
+                  "text"
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "rank_window_size": 50,
+      "rank_constant": 20
+    }
+  }
+}

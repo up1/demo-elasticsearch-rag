@@ -36,10 +36,10 @@ vector_db  = ElasticsearchStore(
 )
 
 # Check if the index already exists
-res = vector_db.client.indices.exists(index=index_name)
-if res.body:
-    print(f"The index {index_name} already exists in Elasticseach")
-    exit(1)
+# res = vector_db.client.indices.exists(index=index_name)
+# if res.body:
+#     print(f"The index {index_name} already exists in Elasticseach")
+#     exit(1)
     
 print(f"Reading the PDFs in {base_path}/data")
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=800, chunk_overlap=100)
