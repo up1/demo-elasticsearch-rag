@@ -36,3 +36,8 @@ $curl -fsSL https://elastic.co/start-local | sh
 $pip install -r requirements.txt
 $python step_01_read_and_store_data.py
 ```
+
+## 3. RAG process with Elasticsearch
+```
+$python step_02_rag.py
+```
