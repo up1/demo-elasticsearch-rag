@@ -1,5 +1,4 @@
 # Store PDF documents in Elasticsearch using Ollama embeddings
-# by Enrico Zimuel (enrico@zimuel.it)
 
 import glob, os
 from dotenv import load_dotenv
