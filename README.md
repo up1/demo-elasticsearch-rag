@@ -28,3 +28,11 @@ $curl -fsSL https://elastic.co/start-local | sh
   - start/stop/uninstall commands
 - Running docker compose up --wait
 ```
+
+## 2. Read ans store data in Elasticsearch
+* Local LLM with Ollama
+
+```
+$pip install -r requirements.txt
+$python step_01_read_and_store_data.py
+```
