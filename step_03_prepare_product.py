@@ -40,8 +40,8 @@ vector_db  = ElasticsearchStore(
 # if res.body:
 #     print(f"The index {index_name} already exists in Elasticseach")
 #     exit(1)
-    
-print(f"Reading the PDFs in {base_path}/data")
+
+print("Load data to Elasticsearch")
 all_products = []
 doc01 = Document(
     page_content="good with fish",
